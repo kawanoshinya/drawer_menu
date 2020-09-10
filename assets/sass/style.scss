@@ -1,0 +1,129 @@
+// ドロワー
+#drawer {
+  width: 50px;
+  height: 50px;
+  margin: 20px auto;
+  // 完成形はmargin: 0 auto;
+
+  &__input {
+    display: none;
+  }
+
+  // ドロワーボタン
+  &__btn {
+    cursor: pointer;
+    display: block;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    background-color: #dcdcdc;
+    border-radius: 2px;
+  }
+
+  // ドロワーメニュー
+  &__content {
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    right: 0;
+    // left:0 →左から　right:0 →右から
+    z-index: 40;
+    width: 20%;
+    // メニューの幅
+    height: 100%;
+    background: #fff;
+    transition: all 0.3s ease-in-out 0s;
+    transform: translateX(100%);
+    // X→横スライド　Y→縦スライド
+
+  }
+
+  // ドロワークローズレイヤー
+  &__close {
+    display: none;
+    position: fixed;
+    z-index: 39;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0;
+    transition: all 0.3s ease-in-out 0s;
+  }
+}
+
+// ドロワーバー
+#drawer__bar {
+  background: #333;
+  display: block;
+  position: absolute;
+  width: 80%;
+  height: 3px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: 0.3s;
+  border-radius: 2px;
+
+  &::before,
+  &::after {
+    background: #333;
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.3s;
+    border-radius: 2px;
+  }
+
+  &::before {
+    margin-top: -25%;
+  }
+
+  &::after {
+    margin-top: 25%;
+  }
+}
+
+// ドロワーチェックドアクション
+#drawer__input:checked~#drawer__btn span {
+  background: rgba(51, 51, 51, 0);
+  // 透明になる
+
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  &::before {
+    transform: rotate(-45deg);
+    margin-top: 0;
+  }
+
+  &::after {
+    transform: rotate(45deg);
+    margin-top: 0;
+  }
+}
+
+#drawer__input:checked~#drawer__content {
+  transform: translateX(0);
+  box-shadow: -6px 0 25px rgba(0, 0, 0, 0.16);
+  // 最初のpxをマイナス値で右からのスライドに対応
+}
+
+#drawer__input:checked~#drawer__close {
+  display: block;
+  opacity: 0.3;
+}
